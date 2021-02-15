@@ -1,90 +1,85 @@
-/* Constants */
-const gridSideLengthInPx = 960;
-const gridElementBorderWidthInPx = 1;
-const defaultGridElementBorderWidth = 
-    gridElementBorderWidthInPx.toString() + "px";
-const doubleGridElementBorderWidth = 
-    (2 * gridElementBorderWidthInPx).toString() + "px";
+let gridSideCount = 16;
+const grid = document.querySelector('.grid');
+const resetButton = document.querySelector('.reset-btn');
 
-/* DOM Elements */
-const grid = document.querySelector(".grid");
-const resetButton = document.querySelector(".reset-btn");
-generateGrid(16);
-
-/* Click to draw */
 let isDrawing = false;
-document.addEventListener("mousedown", () => { isDrawing = true; });
-document.addEventListener("mouseup", () => { isDrawing = false; });
+document.addEventListener('mousedown', () => {
+  isDrawing = true;
+});
+document.addEventListener('mouseup', () => {
+  isDrawing = false;
+});
 
-/* Reset Button */
-resetButton.addEventListener("click", e => { resetGrid(e) });
-
-function generateGrid(gridSideCount) {
-  let gridElementSideLengthInPx = 
-      calculateGridElementSideLengthInPx(gridSideCount);
-  populateGrid(gridElementSideLengthInPx, gridSideCount);
+function clearGrid() {
+  const gridElements = Array.from(grid.childNodes);
+  gridElements.forEach((gridElement) => {
+    gridElement.remove();
+  });
 }
 
-function calculateGridElementSideLengthInPx(gridSideCount) {
-  let availableLength = gridSideLengthInPx - 
-      ((gridElementBorderWidthInPx * gridSideCount) + 1);
-  if (gridSideCount < 15) {
-    return Math.floor(availableLength / gridSideCount);
-  }
-  return Math.round(availableLength / gridSideCount);
-}
-
-function populateGrid(gridElementSideLengthInPx, gridSideCount) {
-  for (let i = 0; i < Math.pow(gridSideCount, 2); i++) {
-    let gridElement = 
-        generateGridElement(gridElementSideLengthInPx, gridSideCount, i);
-    grid.appendChild(gridElement);
-  }
-}
-
-function generateGridElement(gridElementSideLengthInPx, gridSideCount, i) {
-  let gridElement = document.createElement("div");
-  gridElement.classList.add("grid-element");
-  gridElement.style.height = gridElementSideLengthInPx.toString() + "px";
-  gridElement.style.width = gridElementSideLengthInPx.toString() + "px";
-  gridElement.addEventListener("mouseover", e => { shade(e); });
-  return gridElement;
-}
-
-function shade(e) {
-  if (isDrawing) {
-    e.target.style.backgroundColor = "#" + randomColor();
-  }
-}
-
-function randomColor() {
-  return Math.floor(Math.random()*16777215).toString(16);
-}
-
-function resetGrid(e) {
-  let gridSideCount = promptUserForGridSideCount();
-  clearGrid();
-  generateGrid(gridSideCount);
+function isValidSize(userInput) {
+  const num = Number.parseInt(userInput.trim(), 10);
+  return Number.isInteger(num, 10) && num <= 100;
 }
 
 function promptUserForGridSideCount() {
-  let gridSideCount = 
-      prompt("How many squares per side would you like to make the new grid?");
-  while (!isValidInteger(gridSideCount)) {
-    gridSideCount = prompt("Please try again.\n\n" + 
-        "How many squares per side would you like to make the new grid?");
+  // eslint-disable-next-line no-alert
+  gridSideCount = prompt(
+    'How many squares per side would you like to make the new grid (100 max)?',
+  );
+  while (!isValidSize(gridSideCount)) {
+    // eslint-disable-next-line no-alert
+    gridSideCount = prompt(
+      'Please try again.\n\nHow many squares per side would you like to make the new grid (100 max)?',
+    );
   }
   return gridSideCount;
 }
 
-function isValidInteger(userInput) {
-  userInput = Number.parseInt(userInput.trim());
-  return Number.isInteger(userInput);
+function setGridSize() {
+  grid.style.gridTemplateColumns = `repeat(${gridSideCount}, 1fr)`;
 }
 
-function clearGrid() {
-  let gridElements = Array.from(grid.childNodes);
-  gridElements.forEach(gridElement => {
-    gridElement.remove();
-  })
+function randomColor() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
+
+function color(e) {
+  if (isDrawing) {
+    e.target.style.backgroundColor = randomColor();
+  }
+}
+
+function generateGridElement() {
+  const gridElement = document.createElement('div');
+  gridElement.classList.add('grid-element');
+  gridElement.addEventListener('mouseover', (e) => {
+    color(e);
+  });
+  return gridElement;
+}
+
+function populateGrid() {
+  for (let i = 0; i < gridSideCount ** 2; i += 1) {
+    const gridElement = generateGridElement();
+    grid.appendChild(gridElement);
+  }
+}
+
+function generateGrid() {
+  setGridSize();
+  populateGrid();
+}
+
+function resetGrid() {
+  promptUserForGridSideCount();
+  clearGrid();
+  generateGrid(gridSideCount);
+}
+
+window.addEventListener('load', () => {
+  generateGrid(gridSideCount);
+});
+resetButton.addEventListener('click', (e) => {
+  resetGrid(e);
+});

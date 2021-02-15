@@ -1,32 +1,31 @@
-html {
-  height: 100%;
-  width: 100%;
-}
-
+html,
 body {
   height: 100%;
-  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .page {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template: 
-    ".   ttl  ttl    ttl  ." auto
-    ".   .    reset  .    ." 6rem
-    ".   .    .      .    ." auto 
-    ".   .    grid   .    ." 960px
-    ".   .    .      .    ." 1fr/
-     1fr 1fr  960px  1fr  1fr;
+  grid-template:
+    ".   ttl   ttl    ttl   ." auto
+    ".   .     reset  .     ." 6rem
+    ".   .     .      .     ." auto
+    ".   .     grid   .     ." 602px
+    ".   .     .      .     ." auto /
+    1fr 5rem 602px 5rem 1fr;
   justify-content: center;
   align-content: center;
+  justify-items: center;
+  align-items: center;
 }
 
 #etch-a-sketch-title {
   grid-area: ttl;
   font-size: 28pt;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   justify-self: center;
   align-self: center;
 }
@@ -37,35 +36,29 @@ body {
   height: 3rem;
   font-size: 16pt;
   color: white;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   justify-self: center;
   align-self: center;
   user-select: none;
   border: none;
   border-radius: 5px;
-  background: #4285F4;
-}
-.reset-btn:focus {
-  outline: none;
+  background: #4285f4;
 }
 .reset-btn:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .grid {
+  width: 600px;
+  height: 600px;
   grid-area: grid;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  padding: 1px;
+  display: grid;
+  border: solid;
+  border-width: 2px;
 }
 
 .grid-element {
-  display: block;
   background-color: white;
   border: solid;
   border-width: 1px;
-  margin: -1px;
 }
