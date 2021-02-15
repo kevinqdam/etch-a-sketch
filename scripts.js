@@ -19,7 +19,7 @@ function clearGrid() {
 
 function isValidSize(userInput) {
   const num = Number.parseInt(userInput.trim(), 10);
-  return Number.isInteger(num, 10) && num <= 100 && num > 0;
+  return (Number.isInteger(num, 10) && num <= 100 && num > 0);
 }
 
 function promptUserForGridSideCount() {
