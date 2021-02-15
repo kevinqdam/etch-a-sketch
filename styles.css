@@ -13,8 +13,7 @@ body {
   height: 100%;
   width: 100%;
   grid-template: 
-    ".   .    .      .    ." 1fr
-    ".   ttl  ttl    ttl  ." 4rem
+    ".   ttl  ttl    ttl  ." auto
     ".   .    reset  .    ." 6rem
     ".   .    .      .    ." auto 
     ".   .    grid   .    ." 960px
