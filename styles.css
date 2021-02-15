@@ -1,0 +1,72 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.page {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template: 
+    ".   .    .      .    ." auto
+    ".   ttl  ttl    ttl  ." 4rem
+    ".   .    reset  .    ." 6rem
+    ".   .    .      .    ." auto 
+    ".   .    grid   .    ." 960px
+    ".   .    .      .    ." auto/
+     1fr 1fr  960px  1fr  1fr;
+  justify-content: center;
+  align-content: center;
+}
+
+#etch-a-sketch-title {
+  grid-area: ttl;
+  font-size: 28pt;
+  font-family: 'Source Sans Pro', sans-serif;
+  justify-self: center;
+  align-self: center;
+}
+
+.reset-btn {
+  grid-area: reset;
+  width: 8rem;
+  height: 3rem;
+  font-size: 16pt;
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  justify-self: center;
+  align-self: center;
+  user-select: none;
+  border: none;
+  border-radius: 5px;
+  background: #4285F4;
+}
+.reset-btn:focus {
+  outline: none;
+}
+.reset-btn:hover {
+  cursor:pointer;
+}
+
+.grid {
+  grid-area: grid;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  padding: 1px;
+}
+
+.grid-element {
+  display: block;
+  background-color: white;
+  border: solid;
+  border-width: 1px;
+  margin: -1px;
+}
