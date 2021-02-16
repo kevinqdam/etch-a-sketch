@@ -45,15 +45,18 @@ function randomColor() {
 }
 
 function color(e) {
-  if (isDrawing) {
-    e.target.style.backgroundColor = randomColor();
-  }
+  e.target.style.backgroundColor = randomColor();
 }
 
 function generateGridElement() {
   const gridElement = document.createElement('div');
   gridElement.classList.add('grid-element');
   gridElement.addEventListener('mouseover', (e) => {
+    if (isDrawing) {
+      color(e);
+    }
+  });
+  gridElement.addEventListener('mousedown', (e) => {
     color(e);
   });
   return gridElement;
